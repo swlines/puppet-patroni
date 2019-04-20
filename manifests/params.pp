@@ -87,6 +87,27 @@ class patroni::params {
         }
       }
     }
+    'Debian': {
+      $servicename = 'patroni'
+      $packagename = 'patroni'
+      $config_path = '/etc/patroni/config.yml'
+      $config_owner = 'root'
+      $config_group = 'root'
+      $config_mode  = '0644'
+      $initdb_locale = 'en_US.utf8'
+
+      case $::lsbdistcodename {
+        'stretch': {
+          $pgsql_data_dir   = '/var/lib/postgresql/9.6/data'
+        }
+        'bionic': {
+          $pgsql_data_dir   = '/var/lib/postgresql/10/data'
+        }
+        default: {
+          fail("This operating system version (${::operatingsystemmajrelease}) is not supported.")
+        }
+      }
+    }
     default: {
       fail("This operating system family (${::osfamily}) is not supported.")
     }
