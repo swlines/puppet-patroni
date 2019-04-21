@@ -104,7 +104,7 @@ class patroni::params {
           $pgsql_data_dir   = '/var/lib/postgresql/10/data'
         }
         default: {
-          fail("This operating system version (${::operatingsystemmajrelease}) is not supported.")
+          fail("This release (${::lsbdistcodename}) is not supported.")
         }
       }
     }
